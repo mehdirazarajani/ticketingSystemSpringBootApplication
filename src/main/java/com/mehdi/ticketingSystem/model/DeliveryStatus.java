@@ -1,4 +1,4 @@
-package com.mehdi.ticketingSystem.domain;
+package com.mehdi.ticketingSystem.model;
 
 public enum DeliveryStatus {
     ORDER_RECEIVED,
@@ -6,11 +6,11 @@ public enum DeliveryStatus {
     ORDER_PICKED,
     ORDER_DELIVERED;
 
-    boolean isGreaterThan(DeliveryStatus status){
+    public boolean isGreaterThan(DeliveryStatus status){
         return this.ordinal() > status.ordinal();
     }
 
-    boolean isLesserThan(DeliveryStatus status){
+    public boolean isLesserThan(DeliveryStatus status){
         return this.ordinal() < status.ordinal();
     }
 

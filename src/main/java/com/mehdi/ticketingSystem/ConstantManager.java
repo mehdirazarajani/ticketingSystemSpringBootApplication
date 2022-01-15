@@ -1,5 +1,8 @@
 package com.mehdi.ticketingSystem;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class ConstantManager {
 
     static ConstantManager instance;

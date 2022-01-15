@@ -1,6 +1,6 @@
-package com.mehdi.ticketingSystem.services;
+package com.mehdi.ticketingSystem.services.interfaces;
 
-import com.mehdi.ticketingSystem.domain.DeliveryDetails;
+import com.mehdi.ticketingSystem.model.DeliveryDetails;
 
 import java.util.List;
 

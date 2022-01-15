@@ -1,4 +1,4 @@
-package com.mehdi.ticketingSystem.resources;
+package com.mehdi.ticketingSystem.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

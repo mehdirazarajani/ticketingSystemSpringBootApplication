@@ -1,4 +1,4 @@
-package com.mehdi.ticketingSystem.domain;
+package com.mehdi.ticketingSystem.model;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;

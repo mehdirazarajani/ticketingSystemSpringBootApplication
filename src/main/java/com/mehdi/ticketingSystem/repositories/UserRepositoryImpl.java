@@ -1,6 +1,6 @@
 package com.mehdi.ticketingSystem.repositories;
 
-import com.mehdi.ticketingSystem.domain.User;
+import com.mehdi.ticketingSystem.model.User;
 import com.mehdi.ticketingSystem.exceptions.AuthException;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -78,11 +78,12 @@ public class UserRepositoryImpl implements UserRepository {
         return jdbcTemplate.queryForObject(SQL_FIND_BY_ID, new Object[]{userId}, userRowMapper);
     }
 
-    private final RowMapper<User> userRowMapper = ((rs, rowNum) -> new User(
-            rs.getInt(User.USER_ID),
-            rs.getString(User.FIRST_NAME),
-            rs.getString(User.LAST_NAME),
-            rs.getString(User.EMAIL),
-            rs.getString(User.PASSWORD))
+    private final RowMapper<User> userRowMapper = ((rs, rowNum) ->
+            new User().
+                    setUserId(rs.getInt(User.USER_ID)).
+                    setFirstName(rs.getString(User.FIRST_NAME)).
+                    setLastName(rs.getString(User.LAST_NAME)).
+                    setEmail(rs.getString(User.EMAIL)).
+                    setPassword(rs.getString(User.PASSWORD))
     );
 }

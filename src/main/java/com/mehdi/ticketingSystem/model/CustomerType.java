@@ -1,4 +1,4 @@
-package com.mehdi.ticketingSystem.domain;
+package com.mehdi.ticketingSystem.model;
 
 public enum CustomerType {
     NEW(1),

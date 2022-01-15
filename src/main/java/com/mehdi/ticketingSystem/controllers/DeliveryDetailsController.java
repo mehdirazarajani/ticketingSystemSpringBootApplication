@@ -1,8 +1,8 @@
-package com.mehdi.ticketingSystem.resources;
+package com.mehdi.ticketingSystem.controllers;
 
-import com.mehdi.ticketingSystem.commonResponses.SuccessResponse;
-import com.mehdi.ticketingSystem.domain.DeliveryDetails;
-import com.mehdi.ticketingSystem.services.DeliveryDetailsService;
+import com.mehdi.ticketingSystem.model.response.common.SuccessResponse;
+import com.mehdi.ticketingSystem.model.DeliveryDetails;
+import com.mehdi.ticketingSystem.services.interfaces.DeliveryDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,11 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/delivery_details")
-public class DeliveryDetailsResource {
+public class DeliveryDetailsController {
 
     @Autowired
     DeliveryDetailsService deliveryDetailsService;

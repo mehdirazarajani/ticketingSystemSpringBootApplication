@@ -1,8 +1,8 @@
 package com.mehdi.ticketingSystem.comparator;
 
-import com.mehdi.ticketingSystem.domain.CustomerType;
-import com.mehdi.ticketingSystem.domain.DeliveryDetails;
-import com.mehdi.ticketingSystem.domain.DeliveryStatus;
+import com.mehdi.ticketingSystem.model.CustomerType;
+import com.mehdi.ticketingSystem.model.DeliveryDetails;
+import com.mehdi.ticketingSystem.model.DeliveryStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

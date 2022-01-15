@@ -1,6 +1,6 @@
-package com.mehdi.ticketingSystem.services;
+package com.mehdi.ticketingSystem.services.interfaces;
 
-import com.mehdi.ticketingSystem.domain.User;
+import com.mehdi.ticketingSystem.model.User;
 import com.mehdi.ticketingSystem.exceptions.AuthException;
 
 public interface UserService {

@@ -1,8 +1,7 @@
-package com.mehdi.ticketingSystem.domain;
+package com.mehdi.ticketingSystem.model;
 
 import com.mehdi.ticketingSystem.utils.ExtTimestamp;
 
-import javax.swing.text.html.Option;
 import java.sql.Timestamp;
 import java.util.Optional;
 

@@ -1,6 +1,6 @@
 package com.mehdi.ticketingSystem.repositories;
 
-import com.mehdi.ticketingSystem.domain.User;
+import com.mehdi.ticketingSystem.model.User;
 import com.mehdi.ticketingSystem.exceptions.AuthException;
 
 public interface UserRepository {
@@ -12,5 +12,4 @@ public interface UserRepository {
     Integer getCountByEmail(String email);
 
     User findById(Integer userId);
-
 }

@@ -1,7 +1,7 @@
 package com.mehdi.ticketingSystem.filters;
 
 import com.mehdi.ticketingSystem.ConstantManager;
-import com.mehdi.ticketingSystem.domain.User;
+import com.mehdi.ticketingSystem.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.http.HttpStatus;
