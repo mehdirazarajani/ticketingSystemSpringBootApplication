@@ -1,5 +1,10 @@
 package com.mehdi.ticketingSystem.model.response.common;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
 public class SuccessResponse<T> extends AbstractResponse {
 
     T data;

@@ -2,13 +2,12 @@ package com.mehdi.ticketingSystem.comparator;
 
 import com.mehdi.ticketingSystem.model.CustomerType;
 import com.mehdi.ticketingSystem.model.DeliveryDetails;
-import com.mehdi.ticketingSystem.model.DeliveryStatus;
+import com.mehdi.ticketingSystem.utils.ExtTimestamp;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.sql.Timestamp;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -22,57 +21,57 @@ class DeliveryDetailComparatorTest {
         return Stream.of(
 
                 Arguments.of(
-                        new DeliveryDetailsBuilder().customerType(CustomerType.NEW).build(),
+                        new DeliveryDetails().setCustomerType(CustomerType.NEW),
                         Operator.EQUALS,
-                        new DeliveryDetailsBuilder().customerType(CustomerType.LOYAL).build(),
+                        new DeliveryDetails().setCustomerType(CustomerType.LOYAL),
                         "CustomerType.NEW = CustomerType.LOYAL"
                 ),
                 Arguments.of(
-                        new DeliveryDetailsBuilder().customerType(CustomerType.NEW).build(),
+                        new DeliveryDetails().setCustomerType(CustomerType.NEW),
                         Operator.LESSER_THAN,
-                        new DeliveryDetailsBuilder().customerType(CustomerType.VIP).build(),
+                        new DeliveryDetails().setCustomerType(CustomerType.VIP),
                         "CustomerType.LOYAL < CustomerType.VIP"
                 ),
                 Arguments.of(
-                        new DeliveryDetailsBuilder().customerType(CustomerType.VIP).build(),
+                        new DeliveryDetails().setCustomerType(CustomerType.VIP),
                         Operator.GREATER_THAN,
-                        new DeliveryDetailsBuilder().customerType(CustomerType.LOYAL).build(),
+                        new DeliveryDetails().setCustomerType(CustomerType.LOYAL),
                         "CustomerType.VIP > CustomerType.LOYAL"
                 ),
                 Arguments.of(
-                        new DeliveryDetailsBuilder().expectedDeliveryTime(System.currentTimeMillis() + (long) Math.pow(10, 7)).build(),
+                        new DeliveryDetails().setExpectedDeliveryTime(new ExtTimestamp(System.currentTimeMillis() + (long) Math.pow(10, 7))),
                         Operator.LESSER_THAN,
-                        new DeliveryDetailsBuilder().expectedDeliveryTime(System.currentTimeMillis() + (long) Math.pow(10, 6)).build(),
+                        new DeliveryDetails().setExpectedDeliveryTime(new ExtTimestamp(System.currentTimeMillis() + (long) Math.pow(10, 6))),
                         "Expected Delivery Time: Current time + 10^7 < Current time + 10 ^ 6"
                 ),
                 Arguments.of(
-                        new DeliveryDetailsBuilder().expectedDeliveryTime(System.currentTimeMillis() - (long) Math.pow(10, 3)).build(),
+                        new DeliveryDetails().setExpectedDeliveryTime(new ExtTimestamp(System.currentTimeMillis() - (long) Math.pow(10, 3))),
                         Operator.GREATER_THAN,
-                        new DeliveryDetailsBuilder().expectedDeliveryTime(System.currentTimeMillis() + (long) Math.pow(10, 6)).build(),
+                        new DeliveryDetails().setExpectedDeliveryTime(new ExtTimestamp(System.currentTimeMillis() + (long) Math.pow(10, 6))),
                         "Expected Delivery Time: Current time - 10^3 > Current time + 10 ^ 6"
                 ),
                 Arguments.of(
-                        new DeliveryDetailsBuilder().timeToReachDestination(DeliveryDetails.MEAN_TIME_TO_PREPARE_FOOD + (long) Math.pow(10, 3)).build(),
+                        new DeliveryDetails().setTimeToReachDestination(new ExtTimestamp(DeliveryDetails.MEAN_TIME_TO_PREPARE_FOOD + (long) Math.pow(10, 3))),
                         Operator.LESSER_THAN,
-                        new DeliveryDetailsBuilder().timeToReachDestination(DeliveryDetails.MEAN_TIME_TO_PREPARE_FOOD + (long) Math.pow(10, 5)).build(),
+                        new DeliveryDetails().setTimeToReachDestination(new ExtTimestamp(DeliveryDetails.MEAN_TIME_TO_PREPARE_FOOD + (long) Math.pow(10, 5))),
                         "Estimated Delivery Time: Mean Time + 10^3 < Mean Time + 10 ^ 5"
                 ),
                 Arguments.of(
-                        new DeliveryDetailsBuilder().timeToReachDestination(DeliveryDetails.MEAN_TIME_TO_PREPARE_FOOD + (long) Math.pow(10, 3)).build(),
+                        new DeliveryDetails().setTimeToReachDestination(new ExtTimestamp(DeliveryDetails.MEAN_TIME_TO_PREPARE_FOOD + (long) Math.pow(10, 3))),
                         Operator.GREATER_THAN,
-                        new DeliveryDetailsBuilder().timeToReachDestination(DeliveryDetails.MEAN_TIME_TO_PREPARE_FOOD - (long) Math.pow(10, 5)).build(),
+                        new DeliveryDetails().setTimeToReachDestination(new ExtTimestamp(DeliveryDetails.MEAN_TIME_TO_PREPARE_FOOD - (long) Math.pow(10, 5))),
                         "Estimated Delivery Time: Mean Time + 10^3 > Mean Time - 10 ^ 5"
                 ),
                 Arguments.of(
-                        new DeliveryDetailsBuilder().deliveryId(1).build(),
+                        new DeliveryDetails().setDeliveryId(1),
                         Operator.GREATER_THAN,
-                        new DeliveryDetailsBuilder().deliveryId(2).build(),
+                        new DeliveryDetails().setDeliveryId(2),
                         "Delivery Id: 1 > 2"
                 ),
                 Arguments.of(
-                        new DeliveryDetailsBuilder().deliveryId(10).build(),
+                        new DeliveryDetails().setDeliveryId(10),
                         Operator.LESSER_THAN,
-                        new DeliveryDetailsBuilder().deliveryId(2).build(),
+                        new DeliveryDetails().setDeliveryId(2),
                         "Delivery Id: 10 < 2"
                 )
 
@@ -101,46 +100,6 @@ class DeliveryDetailComparatorTest {
         GREATER_THAN,
         LESSER_THAN,
         EQUALS
-    }
-
-    static class DeliveryDetailsBuilder {
-
-        private final DeliveryDetails deliveryDetails = new DeliveryDetails(0, CustomerType.VIP, DeliveryStatus.ORDER_PREPARING, new Timestamp(0), 0, new Timestamp(0));
-
-        DeliveryDetails build() {
-            return deliveryDetails;
-        }
-
-        DeliveryDetailsBuilder deliveryId(int deliveryId) {
-            deliveryDetails.setDeliveryId(deliveryId);
-            return this;
-        }
-
-        DeliveryDetailsBuilder customerType(CustomerType customerType) {
-            deliveryDetails.setCustomerType(customerType);
-            return this;
-        }
-
-        DeliveryDetailsBuilder deliveryStatus(DeliveryStatus deliveryStatus) {
-            deliveryDetails.setDeliveryStatus(deliveryStatus);
-            return this;
-        }
-
-        DeliveryDetailsBuilder expectedDeliveryTime(long expectedDeliveryTime) {
-            deliveryDetails.setExpectedDeliveryTime(new Timestamp(expectedDeliveryTime));
-            return this;
-        }
-
-        DeliveryDetailsBuilder currentDistanceFromDestinationInMeters(int currentDistanceFromDestinationInMeters) {
-            deliveryDetails.setCurrentDistanceFromDestinationInMeters(currentDistanceFromDestinationInMeters);
-            return this;
-        }
-
-        DeliveryDetailsBuilder timeToReachDestination(long timeToReachDestination) {
-            deliveryDetails.setTimeToReachDestination(new Timestamp(timeToReachDestination));
-            return this;
-        }
-
     }
 
 

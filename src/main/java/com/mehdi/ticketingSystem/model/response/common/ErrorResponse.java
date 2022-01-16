@@ -1,8 +1,12 @@
 package com.mehdi.ticketingSystem.model.response.common;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
 
-
+@Setter
+@Getter
 public class ErrorResponse extends AbstractResponse{
 
     List<String> errors;
@@ -12,11 +16,4 @@ public class ErrorResponse extends AbstractResponse{
         this.errors = errors;
     }
 
-    public List<String> getErrors() {
-        return errors;
-    }
-
-    public void setErrors(List<String> errors) {
-        this.errors = errors;
-    }
 }

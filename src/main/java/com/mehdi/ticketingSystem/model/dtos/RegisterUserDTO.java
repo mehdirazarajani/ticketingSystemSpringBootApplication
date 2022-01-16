@@ -4,8 +4,10 @@ import javax.validation.constraints.*;
 
 import com.mehdi.ticketingSystem.model.User;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 @Data
+@Accessors(chain = true)
 public class RegisterUserDTO {
 
     @NotBlank(message = "The firstName is required.")

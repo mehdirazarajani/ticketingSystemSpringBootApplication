@@ -1,5 +1,6 @@
 package com.mehdi.ticketingSystem.controllers;
 
+import com.mehdi.ticketingSystem.model.response.common.SuccessResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,12 +12,12 @@ import java.util.Collections;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/sample1")
-public class Sample1Resource {
+@RequestMapping("/api/test")
+public class TestResource {
 
     @GetMapping("/test")
-    public ResponseEntity<Map<String, String>> test(@RequestBody Map<String, Object> userMap) {
-        return new ResponseEntity<>(Collections.emptyMap(), HttpStatus.OK);
+    public ResponseEntity<SuccessResponse<Object>> test(@RequestBody Map<String, Object> userMap) {
+        return new ResponseEntity<>(new SuccessResponse<>("the request is successful", null), HttpStatus.OK);
     }
 
 }

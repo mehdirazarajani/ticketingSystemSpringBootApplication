@@ -46,8 +46,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(new ErrorResponse("the request failed due to following reasons", errors), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(AuthException.class)
-    public ResponseEntity<?> authException(AuthException ex, WebRequest request) {
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<?> sampleException(Exception ex, WebRequest request) {
         List<String> errors = new ArrayList<>();
 
         errors.add(ex.getMessage());

@@ -34,7 +34,7 @@ public class TicketingSystemApplication {
         FilterRegistrationBean<AuthFilter> registrationBean = new FilterRegistrationBean<>();
         AuthFilter authFilter = new AuthFilter();
         registrationBean.setFilter(authFilter);
-        registrationBean.addUrlPatterns("/api/sample/*");
+        registrationBean.addUrlPatterns("/api/test/*");
         return registrationBean;
     }
 

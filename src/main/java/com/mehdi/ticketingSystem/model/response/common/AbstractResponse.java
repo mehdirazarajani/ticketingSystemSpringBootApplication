@@ -1,7 +1,12 @@
 package com.mehdi.ticketingSystem.model.response.common;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
 public abstract class AbstractResponse {
-    protected String status;
+    protected final String status;
     protected final String message;
 
     public AbstractResponse(boolean isErrorPresent, String message) {
@@ -9,15 +14,8 @@ public abstract class AbstractResponse {
         this.message = message;
     }
 
-    public String getStatus() {
-        return status;
+    public boolean isSuccess(){
+        return status.equals("success");
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getMessage() {
-        return message;
-    }
 }

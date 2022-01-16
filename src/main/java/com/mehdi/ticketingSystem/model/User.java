@@ -1,11 +1,11 @@
 package com.mehdi.ticketingSystem.model;
 
-import javax.persistence.Column;
-import javax.validation.constraints.NotNull;
-import javax.persistence.Table;
-import javax.persistence.Entity;
-import lombok.experimental.Accessors;
 import lombok.Data;
+import lombok.experimental.Accessors;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Table(name = "users")
 @Entity

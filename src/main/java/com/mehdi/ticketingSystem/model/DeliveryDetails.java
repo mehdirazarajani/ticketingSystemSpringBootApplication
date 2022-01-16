@@ -1,10 +1,16 @@
 package com.mehdi.ticketingSystem.model;
 
 import com.mehdi.ticketingSystem.utils.ExtTimestamp;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 
 import java.sql.Timestamp;
 import java.util.Optional;
 
+@Setter
+@Getter
+@Accessors(chain = true)
 public class DeliveryDetails {
 
     public final static long MEAN_TIME_TO_PREPARE_FOOD = 30 * 60 * 1000; // 30 minutes
@@ -24,60 +30,15 @@ public class DeliveryDetails {
     int currentDistanceFromDestinationInMeters;
     ExtTimestamp timeToReachDestination;
 
+    public DeliveryDetails(){
+    }
+
     public DeliveryDetails(int deliveryId, CustomerType customerType, DeliveryStatus deliveryStatus, Timestamp expectedDeliveryTime, int currentDistanceFromDestinationInMeters, Timestamp timeToReachDestination) {
         this.deliveryId = deliveryId;
         this.customerType = customerType;
         this.deliveryStatus = deliveryStatus;
         this.expectedDeliveryTime = new ExtTimestamp(expectedDeliveryTime);
         this.currentDistanceFromDestinationInMeters = currentDistanceFromDestinationInMeters;
-        this.timeToReachDestination = new ExtTimestamp(timeToReachDestination);
-    }
-
-    public int getDeliveryId() {
-        return deliveryId;
-    }
-
-    public void setDeliveryId(int deliveryId) {
-        this.deliveryId = deliveryId;
-    }
-
-    public CustomerType getCustomerType() {
-        return customerType;
-    }
-
-    public void setCustomerType(CustomerType customerType) {
-        this.customerType = customerType;
-    }
-
-    public DeliveryStatus getDeliveryStatus() {
-        return deliveryStatus;
-    }
-
-    public void setDeliveryStatus(DeliveryStatus deliveryStatus) {
-        this.deliveryStatus = deliveryStatus;
-    }
-
-    public Timestamp getExpectedDeliveryTime() {
-        return expectedDeliveryTime;
-    }
-
-    public void setExpectedDeliveryTime(Timestamp expectedDeliveryTime) {
-        this.expectedDeliveryTime = new ExtTimestamp(expectedDeliveryTime);
-    }
-
-    public int getCurrentDistanceFromDestinationInMeters() {
-        return currentDistanceFromDestinationInMeters;
-    }
-
-    public void setCurrentDistanceFromDestinationInMeters(int currentDistanceFromDestinationInMeters) {
-        this.currentDistanceFromDestinationInMeters = currentDistanceFromDestinationInMeters;
-    }
-
-    public ExtTimestamp getTimeToReachDestination() {
-        return timeToReachDestination;
-    }
-
-    public void setTimeToReachDestination(Timestamp timeToReachDestination) {
         this.timeToReachDestination = new ExtTimestamp(timeToReachDestination);
     }
 
