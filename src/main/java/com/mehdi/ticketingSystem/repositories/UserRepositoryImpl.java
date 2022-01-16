@@ -2,6 +2,7 @@ package com.mehdi.ticketingSystem.repositories;
 
 import com.mehdi.ticketingSystem.model.User;
 import com.mehdi.ticketingSystem.exceptions.AuthException;
+import com.mehdi.ticketingSystem.repositories.interfaces.UserRepository;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;

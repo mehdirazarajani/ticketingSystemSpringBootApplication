@@ -13,7 +13,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/test")
-public class TestResource {
+public class TestController {
 
     @GetMapping("/test")
     public ResponseEntity<SuccessResponse<Object>> test(@RequestBody Map<String, Object> userMap) {

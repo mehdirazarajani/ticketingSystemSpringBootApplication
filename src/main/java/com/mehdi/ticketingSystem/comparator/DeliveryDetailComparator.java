@@ -9,7 +9,7 @@ import java.util.Comparator;
 @Component
 public class DeliveryDetailComparator implements Comparator<DeliveryDetails> {
 
-    private ComparatorCalculator calculator;
+    private final ComparatorCalculator calculator;
 
     public DeliveryDetailComparator() {
         calculator = new ComparatorCalculatorBuilder
@@ -24,9 +24,11 @@ public class DeliveryDetailComparator implements Comparator<DeliveryDetails> {
     public int compare(DeliveryDetails delivery1, DeliveryDetails delivery2) {
         int value = 0;
 
-        while (calculator != null){
-            value += calculator.calculate(delivery1, delivery2);
-            calculator = calculator.moveNext();
+        ComparatorCalculator current = calculator;
+
+        while (current != null){
+            value += current.calculate(delivery1, delivery2);
+            current = current.moveNext();
         }
         return value;
     }

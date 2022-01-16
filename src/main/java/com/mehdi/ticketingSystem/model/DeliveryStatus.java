@@ -25,4 +25,14 @@ public enum DeliveryStatus {
             return DeliveryStatus.ORDER_RECEIVED;
         }
     }
+
+    public static boolean isValidName(String name){
+        try {
+            DeliveryStatus.valueOf(name.toUpperCase());
+            return true;
+        } catch (Exception e){
+            return false;
+        }
+    }
+
 }

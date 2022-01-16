@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-class TestResourceTest {
+class TestControllerTest {
 
     private Gson gson;
     @Autowired
@@ -60,8 +60,7 @@ class TestResourceTest {
         String resultContent = result.getResponse().getContentAsString();
 
         try {
-            Type type = new TypeToken<SuccessResponse<TokenResponse>>() {
-            }.getType();
+            Type type = new TypeToken<SuccessResponse<TokenResponse>>() {}.getType();
 
             SuccessResponse<TokenResponse> response = gson.fromJson(resultContent, type);
             assertTrue(response.isSuccess(), response.getMessage());

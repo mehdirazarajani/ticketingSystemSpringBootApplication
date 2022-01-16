@@ -34,4 +34,13 @@ public enum CustomerType {
             return CustomerType.NEW;
         }
     }
+
+    public static boolean isValidName(String name){
+        try {
+            CustomerType.valueOf(name.toUpperCase());
+            return true;
+        } catch (Exception e){
+            return false;
+        }
+    }
 }

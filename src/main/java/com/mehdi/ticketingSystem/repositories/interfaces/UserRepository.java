@@ -1,4 +1,4 @@
-package com.mehdi.ticketingSystem.repositories;
+package com.mehdi.ticketingSystem.repositories.interfaces;
 
 import com.mehdi.ticketingSystem.model.User;
 import com.mehdi.ticketingSystem.exceptions.AuthException;

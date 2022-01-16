@@ -5,12 +5,15 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+import javax.persistence.Column;
+import javax.persistence.Table;
 import java.sql.Timestamp;
 import java.util.Optional;
 
 @Setter
 @Getter
 @Accessors(chain = true)
+@Table(name = "delivery_details")
 public class DeliveryDetails {
 
     public final static long MEAN_TIME_TO_PREPARE_FOOD = 30 * 60 * 1000; // 30 minutes
@@ -23,14 +26,26 @@ public class DeliveryDetails {
     public static String TIME_TO_REACH_DESTINATION = "time_to_reach_destination";
     public static String ESTIMATED_TIME = "estimated_time";
 
+    @Column(nullable = false)
     int deliveryId;
+    @Column(nullable = false)
     CustomerType customerType;
+    @Column(nullable = false)
     DeliveryStatus deliveryStatus;
+    @Column(nullable = false)
     ExtTimestamp expectedDeliveryTime;
+    @Column(nullable = false)
     int currentDistanceFromDestinationInMeters;
+    @Column(nullable = false)
     ExtTimestamp timeToReachDestination;
 
     public DeliveryDetails(){
+        deliveryId = 0;
+        customerType = CustomerType.LOYAL;
+        deliveryStatus = DeliveryStatus.ORDER_RECEIVED;
+        expectedDeliveryTime = new ExtTimestamp(0);
+        currentDistanceFromDestinationInMeters = 0;
+        timeToReachDestination = new ExtTimestamp(0);
     }
 
     public DeliveryDetails(int deliveryId, CustomerType customerType, DeliveryStatus deliveryStatus, Timestamp expectedDeliveryTime, int currentDistanceFromDestinationInMeters, Timestamp timeToReachDestination) {

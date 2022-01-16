@@ -3,7 +3,7 @@ package com.mehdi.ticketingSystem.services;
 import com.mehdi.ticketingSystem.PatternCollection;
 import com.mehdi.ticketingSystem.model.User;
 import com.mehdi.ticketingSystem.exceptions.AuthException;
-import com.mehdi.ticketingSystem.repositories.UserRepository;
+import com.mehdi.ticketingSystem.repositories.interfaces.UserRepository;
 import com.mehdi.ticketingSystem.services.interfaces.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
