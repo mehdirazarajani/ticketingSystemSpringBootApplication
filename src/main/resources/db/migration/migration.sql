@@ -1,20 +1,10 @@
---drop database ticketingSystem;
---drop user ticketingSystemUser;
---
---create user ti1cketingSystemUser with password 'password';
---create database ticketingSystem with owner=ticketingSystemUser;
-\connect ticketingSystem;
-
---alter default privileges grant all on tables to ticketingSystemUser;
---alter default privileges grant all on sequences to ticketingSystemUser;
-
-create table users(
+CREATE TABLE IF NOT EXISTS users(
     user_id serial primary key not null,
     username varchar(50) not null,
     password text not null
 );
 
-create table DELIVERY_DETAILS(
+CREATE TABLE IF NOT EXISTS DELIVERY_DETAILS(
     delivery_id serial primary key not null,
     customer_type varchar(20) not null,
     delivery_status varchar(20) not null,

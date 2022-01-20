@@ -1,0 +1,41 @@
+version: '3'
+
+#Define services
+services:
+
+  #PostgreSQL Database for the application
+  ticketing_system-postgres:
+    image: "postgres:11.4"
+    container_name: ticketing_system-postgres
+    #Volume mounted for database for the storage
+    volumes:
+      - ticketing_system-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432 # Forward the exposed port 5432 on the container to port 5432 on the host machine
+
+    #Environment variable for DB name, user and password
+    environment:
+      - POSTGRES_DB=ticketing_system
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  #Back-end Spring Boot Application
+  ticketing_system-app:
+    #The docker file in ticketing_system-app build the jar and provides the docker image with the following name.
+    build: .
+    container_name: ticketing_system-app
+
+    #Environment variables for Spring Boot Application.
+    environment:
+      - DB_SERVER=ticketing_system-postgres
+      - POSTGRES_DB=ticketing_system
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - 8080:8080 # Forward the exposed port 8080 on the container to port 8080 on the host machine
+    links:
+      - ticketing_system-postgres
+
+##Volumes for DB data
+volumes:
+  ticketing_system-data: {}
