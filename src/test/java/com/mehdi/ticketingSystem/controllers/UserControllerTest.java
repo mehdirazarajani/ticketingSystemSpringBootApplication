@@ -193,6 +193,15 @@ class UserControllerTest {
 
     @Test
     public void testLoginSuccessful() throws Exception {
+        RegisterUserDTO registerUserDTO = new RegisterUserDTO();
+        registerUserDTO.setEmail("mehdi@gmail.com").
+                setFirstName("Mehdi").
+                setLastName("Raza").
+                setPassword("123456");
+        String jsonRequest = gson.toJson(registerUserDTO);
+        mockMvc.perform(post("/api/users/register").content(jsonRequest)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
         LoginUserDTO loginUserDTO = new LoginUserDTO();
         loginUserDTO.setEmail("mehdi@gmail.com").setPassword("123456");
         try {

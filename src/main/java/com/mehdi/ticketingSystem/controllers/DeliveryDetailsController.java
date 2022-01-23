@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api/delivery_details")
+@RequestMapping("/api/delivery-details")
 public class DeliveryDetailsController {
 
     @Autowired
     DeliveryDetailsService deliveryDetailsService;
 
-    @GetMapping("/uncompleted_details_in_priority")
+    @GetMapping("/uncompleted-details-in-priority")
     public ResponseEntity<SuccessResponse<DeliveryDetailsList>> uncompletedDetailsInPriority() {
         DeliveryDetailsList list = deliveryDetailsService.getAllUncompletedDeliveryDetails();
         return new ResponseEntity<>(
@@ -27,7 +27,16 @@ public class DeliveryDetailsController {
         );
     }
 
-    @DeleteMapping("/delete_all")
+    @PostMapping("/populate")
+    public ResponseEntity<SuccessResponse<DeliveryDetailsList>> createDeliveryTickets() {
+        DeliveryDetailsList list = deliveryDetailsService.getAllUncompletedDeliveryDetails();
+        return new ResponseEntity<>(
+                new SuccessResponse<>("this is list in High to Priority level", list),
+                HttpStatus.OK
+        );
+    }
+
+    @DeleteMapping("/delete-all")
     public ResponseEntity<SuccessResponse<Object>> delete() {
         deliveryDetailsService.deleteAll();
         return new ResponseEntity<>(

@@ -5,8 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-import javax.persistence.Column;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Optional;
 
@@ -16,16 +15,18 @@ import java.util.Optional;
 @Table(name = "delivery_details")
 public class DeliveryDetails {
 
-    public final static long MEAN_TIME_TO_PREPARE_FOOD = 30 * 60 * 1000; // 30 minutes
-    public static String TABLE_NAME = "DELIVERY_DETAILS";
-    public static String DELIVERY_ID = "delivery_id";
-    public static String CUSTOMER_TYPE = "customer_type";
-    public static String DELIVERY_STATUS = "delivery_status";
-    public static String EXPECTED_DELIVERY_TIME = "expected_delivery_time";
-    public static String CURRENT_DISTANCE_FROM_DESTINATION_IN_METERS = "current_distance_from_destination_in_meters";
-    public static String TIME_TO_REACH_DESTINATION = "time_to_reach_destination";
-    public static String ESTIMATED_TIME = "estimated_time";
+    public static final long MEAN_TIME_TO_PREPARE_FOOD = 30 * 60 * 1000; // 30 minutes
+    public static final String TABLE_NAME = "DELIVERY_DETAILS";
+    public static final String DELIVERY_ID = "delivery_id";
+    public static final String CUSTOMER_TYPE = "customer_type";
+    public static final String DELIVERY_STATUS = "delivery_status";
+    public static final String EXPECTED_DELIVERY_TIME = "expected_delivery_time";
+    public static final String CURRENT_DISTANCE_FROM_DESTINATION_IN_METERS = "current_distance_from_destination_in_meters";
+    public static final String TIME_TO_REACH_DESTINATION = "time_to_reach_destination";
+    public static final String ESTIMATED_TIME = "estimated_time";
 
+
+    @Id
     @Column(nullable = false)
     int deliveryId;
     @Column(nullable = false)
@@ -38,6 +39,10 @@ public class DeliveryDetails {
     int currentDistanceFromDestinationInMeters;
     @Column(nullable = false)
     ExtTimestamp timeToReachDestination;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "delivery_id", referencedColumnName = "delivery_id")
+    private DeliveryTicket deliveryTicket;
 
     public DeliveryDetails(){
         deliveryId = 0;

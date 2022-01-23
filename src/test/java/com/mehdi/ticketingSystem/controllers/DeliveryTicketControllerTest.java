@@ -37,8 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-class DeliveryDetailsControllerTest {
-
+class DeliveryTicketControllerTest {
     private Gson gson;
     @Autowired
     private MockMvc mockMvc;
@@ -48,8 +47,9 @@ class DeliveryDetailsControllerTest {
         gson = new Gson();
     }
 
+
     @Test
-    public void test() throws Exception {
+    void test() throws Exception {
         long baseTimestamp = System.currentTimeMillis() + DeliveryDetails.MEAN_TIME_TO_PREPARE_FOOD + minutes(30);
 
         RegisterUserDTO registerUserDTO = new RegisterUserDTO();
@@ -112,7 +112,7 @@ class DeliveryDetailsControllerTest {
         }
 
         // get the values
-        result = mockMvc.perform(get("/api/delivery-details/uncompleted-details-in-priority")
+        result = mockMvc.perform(post("/api/delivery-ticket/populate")
                 .header(ConstantManager.getInstance().AUTH_KEY, token)
                 .content(jsonRequest).contentType(MediaType.APPLICATION_JSON_VALUE)).andReturn();
         resultContent = result.getResponse().getContentAsString();
@@ -123,25 +123,37 @@ class DeliveryDetailsControllerTest {
         assertTrue(response1.isSuccess(), response1.getMessage());
 
         List<Map<String, Object>> list = response1.getData();
-        assertEquals(list.size(), 10); // not 14 because 4 are completed orders
+        assertEquals(10, list.size()); // not 14 because 4 are completed orders
 
         List<Integer> expectedList = List.of(6, 7, 1, 4, 5, 3, 2, 8, 9, 10);
         List<Integer> actualList = new ArrayList<>();
-        for (Map<String, Object> map : list){
+        for (Map<String, Object> map : list) {
             actualList.add((int) Math.round((Double) map.get("deliveryId")));
         }
 
         assertThat(expectedList).isEqualTo(actualList);
 
         // clear the table for next run (no conflicts in UT)
-        mockMvc.perform(delete("/api/delivery-details/delete-all")
+        result = mockMvc.perform(get("/api/delivery-ticket/all")
                 .header(ConstantManager.getInstance().AUTH_KEY, token)
-                .content("{}").contentType(MediaType.APPLICATION_JSON_VALUE)).andExpect(status().isOk());
+                .content("{}").contentType(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+        resultContent = result.getResponse().getContentAsString();
+        response1 = gson.fromJson(resultContent, type);
+
+        list = response1.getData();
+        assertEquals(10, list.size()); // not 14 because 4 are completed orders
+
+        actualList = new ArrayList<>();
+        for (Map<String, Object> map : list) {
+            actualList.add((int) Math.round((Double) map.get("deliveryId")));
+        }
+
+        assertThat(expectedList).isEqualTo(actualList);
     }
 
     private long minutes(int min) {
         return (long) min * 1000 * 60;
     }
-
 
 }
