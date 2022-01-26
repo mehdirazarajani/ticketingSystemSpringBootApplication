@@ -1,15 +1,10 @@
 package com.mehdi.ticketingSystem.services.interfaces;
 
-import com.mehdi.ticketingSystem.model.DeliveryDetailsList;
-import com.mehdi.ticketingSystem.model.DeliveryTicket;
-
-import java.util.List;
+import com.mehdi.ticketingSystem.model.DeliveryTickets;
 
 public interface DeliveryTicketService {
 
-    void deleteAll();
+    DeliveryTickets populate();
 
-    void insertAll(DeliveryDetailsList deliveryDetailsList);
-
-    List<DeliveryTicket> getAll();
+    DeliveryTickets getAll();
 }

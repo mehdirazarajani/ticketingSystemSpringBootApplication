@@ -1,8 +1,6 @@
 package com.mehdi.ticketingSystem.repositories;
 
-import com.mehdi.ticketingSystem.model.DeliveryDetails;
-import com.mehdi.ticketingSystem.model.DeliveryDetailsList;
-import com.mehdi.ticketingSystem.model.DeliveryTicket;
+import com.mehdi.ticketingSystem.model.*;
 import com.mehdi.ticketingSystem.repositories.interfaces.DeliveryTicketRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -11,13 +9,13 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Timestamp;
 
 @Repository
 public class DeliveryTicketRepositoryImpl implements DeliveryTicketRepository {
 
-    public static final String SELECT_ALL = "SELECT " + DeliveryTicket.TICKET_ID + ", " + DeliveryTicket.DELIVERY_ID + " FROM " + DeliveryTicket.TABLE_NAME;
+    public static final String SELECT_ALL = "SELECT " + DeliveryTicket.TICKET_ID + ", d." + DeliveryDetails.DELIVERY_ID + ", " + DeliveryDetails.CUSTOMER_TYPE + ", " + DeliveryDetails.DELIVERY_STATUS + ", " + DeliveryDetails.EXPECTED_DELIVERY_TIME + ", " + DeliveryDetails.CURRENT_DISTANCE_FROM_DESTINATION_IN_METERS + ", " + DeliveryDetails.TIME_TO_REACH_DESTINATION +
+            " FROM " + DeliveryDetails.TABLE_NAME + " d INNER JOIN " + DeliveryTicket.TABLE_NAME + " t ON d." + DeliveryDetails.DELIVERY_ID + " = t." + DeliveryTicket.DELIVERY_ID;
     private static final String DELETE_ALL = "DELETE FROM " + DeliveryTicket.TABLE_NAME;
     private static final String SQL_CREATE = "INSERT INTO " + DeliveryTicket.TABLE_NAME + " (" + DeliveryTicket.TICKET_ID + ", " + DeliveryTicket.DELIVERY_ID + ") " +
             "VALUES(?, ?)";
@@ -42,14 +40,23 @@ public class DeliveryTicketRepositoryImpl implements DeliveryTicketRepository {
     }
 
     @Override
-    public List<DeliveryTicket> getAll() {
+    public DeliveryTickets getAll() {
         var list = jdbcTemplate.queryForList(SELECT_ALL);
-        List<DeliveryTicket> tickets = new ArrayList<>();
+        DeliveryTickets tickets = new DeliveryTickets();
         for (var element : list) {
             tickets.add(
                     new DeliveryTicket(
                             (int) element.getOrDefault(DeliveryTicket.TICKET_ID, 0),
                             (int) element.getOrDefault(DeliveryTicket.DELIVERY_ID, 0)
+                    ).setDeliveryDetails(
+                            new DeliveryDetails(
+                                    (int) element.get(DeliveryDetails.DELIVERY_ID),
+                                    CustomerType.getByName((String) element.get(DeliveryDetails.CUSTOMER_TYPE)),
+                                    DeliveryStatus.getByName((String) element.get(DeliveryDetails.DELIVERY_STATUS)),
+                                    (Timestamp) element.get(DeliveryDetails.EXPECTED_DELIVERY_TIME),
+                                    (int) element.get(DeliveryDetails.CURRENT_DISTANCE_FROM_DESTINATION_IN_METERS),
+                                    (Timestamp) element.get(DeliveryDetails.TIME_TO_REACH_DESTINATION)
+                            )
                     )
             );
         }
